@@ -26,6 +26,7 @@ import { useForm, useFieldArray } from "react-hook-form"
 
 import { cn } from "@/lib/utils"
 import { format } from "date-fns"
+import { useRouter } from "next/navigation"
 
 type FormValues = {
   description: string;
@@ -38,6 +39,8 @@ type FormValues = {
 }
 
 const CreateTask = () => {
+  const router = useRouter()
+
   const form = useForm<FormValues>({
     defaultValues: {
       description: "",
@@ -53,7 +56,18 @@ const CreateTask = () => {
   })
 
   const onSubmit = async (values: FormValues) => {
-    console.log(values)
+    try {
+      const response = await fetch('/api/tasks/new', {
+        method: 'POST',
+        body: JSON.stringify(values)
+      })
+
+      if (response.ok) {
+        router.push('/')
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
