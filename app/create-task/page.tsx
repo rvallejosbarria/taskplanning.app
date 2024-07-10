@@ -72,7 +72,7 @@ const CreateTask = () => {
 
   return (
     <>
-      <main className="py-6 px-12 mt-10 mx-auto w-1/5 rounded border">
+      <main className="py-6 px-12 md:mt-10 mx-auto w-full md:w-1/5 rounded md:border">
         <div className="flex flex-row justify-between mb-6">
           <Link href="/" className="flex flex-row items-center gap-x-2 hover:underline">
             <ArrowLeftIcon />
