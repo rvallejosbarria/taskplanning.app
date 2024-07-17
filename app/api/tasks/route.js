@@ -7,5 +7,5 @@ export const GET = async (req) => {
 
   const tasks = await response.json()
 
-  return new Response(JSON.stringify(tasks), { status: 201 })
+  return new Response(JSON.stringify(tasks), { status: 200 })
 }
