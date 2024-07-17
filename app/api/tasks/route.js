@@ -1,5 +1,5 @@
 export const GET = async (req) => {
-  const response = await fetch('http://10.200.72.21/TaskPlanningAPI/api/Tasks')
+  const response = await fetch('http://10.200.72.21/TaskPlanningAPI/api/Tasks', { cache: 'no-store' })
 
   if (!response.ok) {
     return new Response("Failed to fetch all tasks", { status: 500 })
