@@ -35,7 +35,7 @@ type FormValues = {
   status: string;
   importance: string;
   employees: {
-    name: string;
+    employeeId: string;
   }[];
 }
 
@@ -46,7 +46,7 @@ const CreateTask = () => {
   const form = useForm<FormValues>({
     defaultValues: {
       description: "",
-      employees: [{ name: "" }]
+      employees: [{ employeeId: "" }]
     }
   })
 
@@ -202,7 +202,7 @@ const CreateTask = () => {
                     <Input
                       placeholder="Assign an employee"
                       type="text"
-                      {...register(`employees.${idx}.name` as const)}
+                      {...register(`employees.${idx}.employeeId` as const)}
                     />
                     {
                       idx > 0 && (
@@ -213,7 +213,7 @@ const CreateTask = () => {
                 ))}
                 <Button
                   type="button"
-                  onClick={() => append({ name: "" })}
+                  onClick={() => append({ employeeId: "" })}
                   disabled={fields.length === 3}
                 >
                   Add employee

@@ -1,9 +1,23 @@
+const fetchEmployees = async () => {
+  const response = await fetch('http://10.200.72.21/TaskPlanningAPI/api/Employees');
+
+  if (!response.ok) {
+    return new Response("Failed to fetch all employees", { status: 500 });
+  }
+
+  return await response.json();
+}
+
 export const POST = async (req) => {
   const data = await req.json()
 
-  const employees = data.employees
+  const employees = await fetchEmployees();
 
-  employees.forEach((employee, idx) => {
+  data.employees.forEach((employee, idx) => {
+    const employeeId = employees.find(e => e.name === employee.employeeId).id;
+
+    employee.employeeId = employeeId;
+
     if (idx === 0) {
       employee.role = "Leader"
     } else {
@@ -18,7 +32,7 @@ export const POST = async (req) => {
       creator: "rvallejos",
       status: data.status,
       importance: data.importance,
-      taskEmployees: employees
+      taskEmployees: data.employees
     }),
     headers: {
       'Content-Type': 'application/json'
