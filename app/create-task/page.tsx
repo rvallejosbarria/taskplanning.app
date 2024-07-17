@@ -27,6 +27,7 @@ import { useForm, useFieldArray } from "react-hook-form"
 import { cn } from "@/lib/utils"
 import { format } from "date-fns"
 import { useRouter } from "next/navigation"
+import { useEffect, useState } from "react"
 
 type FormValues = {
   description: string;
@@ -39,7 +40,8 @@ type FormValues = {
 }
 
 const CreateTask = () => {
-  const router = useRouter()
+  const router = useRouter();
+  const [employees, setEmployees] = useState([]);
 
   const form = useForm<FormValues>({
     defaultValues: {
@@ -69,6 +71,17 @@ const CreateTask = () => {
       console.log(error)
     }
   }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch('/api/employees');
+      const json = await res.json();
+
+      setEmployees(json);
+    }
+
+    fetchData();
+  }, []);
 
   return (
     <>
